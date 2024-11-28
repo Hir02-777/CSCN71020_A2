@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "main.h"
+#include "main."
 
 extern "C" void setLength(int, int*);
 extern "C" void setWidth(int, int*);
@@ -44,6 +44,13 @@ namespace RectangleTests
             setLength(100, &length);
             Assert::AreEqual(50, length);
         }
+       
+        TEST_METHOD(TestSetLength_NegativeValue_DoesNotChangeLength)
+        {
+            int length = 50;
+            setLength(-5, &length);
+            Assert::AreEqual(50, length);
+        }
 
         TEST_METHOD(TestSetWidth_ValidInput_SetsWidthCorrectly)
         {
@@ -72,17 +79,36 @@ namespace RectangleTests
             setWidth(100, &width);
             Assert::AreEqual(50, width);
         }
+       
+        TEST_METHOD(TestSetWidth_ZeroValue_DoesNotChangeWidth)
+        {
+            int width = 25;
+            setWidth(0, &width);
+            Assert::AreEqual(25, width);
+        }
 
         TEST_METHOD(TestGetPerimeter_ValidInputs_ReturnsCorrectValue)
         {
             int length = 5, width = 10;
             Assert::AreEqual(30, getPerimeter(&length, &width)); 
         }
+       
+        TEST_METHOD(TestGetPerimeter_MaxInputs_ReturnsCorrectValue)
+        {
+            int length = 99, width = 99;
+            Assert::AreEqual(396, getPerimeter(&length, &width)); 
+        }
 
         TEST_METHOD(TestGetArea_ValidInputs_ReturnsCorrectValue)
         {
             int length = 5, width = 10;
             Assert::AreEqual(50, getArea(&length, &width));
+        }
+
+        TEST_METHOD(TestGetArea_MaxInputs_ReturnsCorrectValue)
+        {
+            int length = 99, width = 99;
+            Assert::AreEqual(9801, getArea(&length, &width)); 
         }
     };
 }
